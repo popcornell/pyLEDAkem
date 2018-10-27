@@ -15,7 +15,7 @@ class ledakem_session(object):
 
     def __init__(self, category, n0):
 
-        self.category= category
+        self.category = category
         self.n0 = n0
 
         if category == 1:
@@ -36,7 +36,7 @@ class ledakem_session(object):
                 self.p = 17027
                 self.dv = 21
                 self.m = np.array([4, 1, 1, 1], dtype='uint8')
-                self.t = 112-50
+                self.t = 112
 
         elif category == 2 or category == 3:
 
@@ -58,7 +58,7 @@ class ledakem_session(object):
                 self.m = np.array([4, 1, 1, 1], dtype='uint8')
                 self.t = 112
 
-        elif category == 4 or category ==5:
+        elif category == 4 or category == 5:
 
             if self.n0 == 2:
                 self.p = 27779
@@ -79,9 +79,7 @@ class ledakem_session(object):
                 self.t = 112
 
 
-
-class Testledakem(unittest.TestCase):
-
+class test_ledakem(unittest.TestCase):
 
     def test_LEDAKem(self):
 
@@ -98,7 +96,6 @@ class Testledakem(unittest.TestCase):
         n_test = 0
 
         for session in self.test_parameters:
-
             i_max = 20
 
             p = session.p
@@ -107,54 +104,39 @@ class Testledakem(unittest.TestCase):
             m = session.m
             dv = session.dv
 
-            n_test+=1
+            n_test += 1
             print("\nLEDAKem Testing n:", n_test)
             print("Parameters:\nCATEGORY:{}\nn0:{}\np:{}\nt:{}".format(session.category, n0, p, t))
-
-            '''
-            n0 = 4
-            m = np.array([2, 2, 2, 1], dtype='uint8')
-            p = 11083
-            dv = 13
-            t = 24
-            i_max = 100
-
-            #pseed = 1
-            '''
 
             pseed = quasi_trng(256)
 
             print("Beginning Key Generation")
             t0 = time.time()
 
-            H, Q, M = keygen(n0,p,dv,m,pseed)
+            H, Q, M = keygen(n0, p, dv, m, pseed)
 
-            print("Private and Public Keys have been generared in: {:3f} s".format(time.time()-t0))
+            print("Private and Public Keys have been generared in: {:3f} s".format(time.time() - t0))
 
             print("Beginning Encryption")
 
             t0 = time.time()
-            Ks_Alice, c_Alice= leda_enc(n0, p, t, M)
+            Ks_Alice, c_Alice = leda_enc(n0, p, t, M)
 
             print("Time taken for Encryption: {:3f} s".format(time.time() - t0))
 
-            thresh_lut = choose_threshold_lut(session.category, n0) #np.array(((0, 48), (1105, 49)), dtype='int64')#
+            thresh_lut = choose_threshold_lut(session.category, n0)  # np.array(((0, 48), (1105, 49)), dtype='int64')#
 
             print("Beginning Decryption")
             t0 = time.time()
-            flag, Ks_Bob = leda_dec(n0,p,m,dv,c_Alice,thresh_lut,i_max,pseed)
+            flag, Ks_Bob = leda_dec(n0, p, m, dv, c_Alice, thresh_lut, i_max, pseed)
 
             print("Time taken for Decryption: {:3f} s".format(time.time() - t0))
 
             self.assertEqual(flag, True)
-            assert Ks_Alice==Ks_Bob
+            assert Ks_Alice == Ks_Bob
 
             print("Decoding succeded!!\n\n")
 
 
-
-
-
-
-
-
+if __name__ == "__main__":
+    unittest.main()
