@@ -6,7 +6,6 @@ from leda_encrypt import leda_enc
 from leda_decrypt import leda_dec
 from rng import quasi_trng
 from threshold_lut import choose_threshold_lut
-
 from M_generation import keygen
 
 
@@ -91,7 +90,7 @@ class test_ledakem(unittest.TestCase):
         for i in self.category:
 
             for j in self.n0:
-                self.test_parameters.append(ledakem_session(i+1, j))
+                self.test_parameters.append(ledakem_session(i, j))
 
         n_test = 0
 

@@ -1,6 +1,6 @@
 import numpy as np
 from HQ_generation import HQgen
-from gf_math_ops import gf2_add, gf2_mul, gf2_inv
+from math_ops import gf2_add, gf2_inv, circmatprod_GF2x
 
 
 def keygen(n0, p, dv, m, pseed):
@@ -17,7 +17,7 @@ def keygen(n0, p, dv, m, pseed):
         temp = np.zeros(p, dtype='uint8')
 
         for j in range(n0):
-            temp = gf2_add(temp, gf2_mul(H[j], Q[j, i]))
+            temp = gf2_add(temp, circmatprod_GF2x(H[j], Q[j, i]))
 
         L.append(temp)
 
@@ -28,13 +28,13 @@ def keygen(n0, p, dv, m, pseed):
     M = []
 
     for i in range(n0 - 1):
-        M.append(gf2_mul(Linv, L[i]))
+        M.append(circmatprod_GF2x(Linv, L[i]))
 
     if __debug__:
 
-        from pyGF2 import gf2_div
+        from math_ops import gf2_div
 
-        check_inverse = gf2_div(gf2_mul(Linv, L[-1]), irr_poly)[1]
+        check_inverse = gf2_div(circmatprod_GF2x(Linv, L[-1]), irr_poly)[1]
 
         assert (np.sum(check_inverse) == 1)
         assert check_inverse[0] == 1

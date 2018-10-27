@@ -1,5 +1,5 @@
 import numpy as np
-from pyGF2.generic_functions import strip_zeros
+from math_ops.pyGF2.generic_functions import strip_zeros
 
 def gf2_mul(a, b):
     """Multiply polynomials in GF(2), FFT instead of convolution in time domain is used

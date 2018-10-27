@@ -1,5 +1,5 @@
 import numpy as np
-from pyGF2.generic_functions import strip_zeros, check_type
+from math_ops.pyGF2.generic_functions import strip_zeros, check_type
 
 
 

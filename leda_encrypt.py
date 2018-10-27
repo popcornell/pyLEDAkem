@@ -1,6 +1,6 @@
 import numpy as np
-from gf_math_ops import gf2_add, gf2_mul
-from gf_math_ops import circtranspose
+from math_ops import gf2_add
+from math_ops import circmatprod_GF2x, circtranspose
 from rng import sha_prng, quasi_trng
 
 from hashlib import sha3_256
@@ -19,7 +19,7 @@ def leda_enc(n0, p, t, M):
     tmp = np.zeros(p, dtype='uint8')
 
     for i in range(n0 - 1):
-        tmp = gf2_add(tmp, gf2_mul(circtranspose(e[i,:]), M[i]))
+        tmp = gf2_add(tmp, circmatprod_GF2x(circtranspose(e[i,:]), M[i]))
 
     c = gf2_add(tmp, circtranspose(e[-1, :]))
 

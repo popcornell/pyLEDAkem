@@ -1,5 +1,5 @@
 import numpy as np
-from pyGF2.generic_functions import strip_zeros
+from math_ops.pyGF2.generic_functions import strip_zeros
 
 
 def gf2_div(dividend, divisor):

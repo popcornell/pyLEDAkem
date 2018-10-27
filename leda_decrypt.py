@@ -1,6 +1,6 @@
 import numpy as np
-from gf_math_ops import gf2_add, gf2_mul
-from gf_math_ops import circtranspose
+from math_ops import gf2_add
+from math_ops import circmatprod_GF2x, circtranspose
 from Qdecoder import Qdecoder
 from HQ_generation import HQgen
 from hashlib import sha3_256
@@ -13,9 +13,9 @@ def leda_dec(n0, p, m, dv, c, thresh_lut, i_max, pseed):
     Llast = np.zeros(p, dtype='uint8')
 
     for i in range(n0):
-        Llast = gf2_add(Llast, gf2_mul(H[i], Q[i][n0 - 1]))
+        Llast = gf2_add(Llast, circmatprod_GF2x(H[i], Q[i][n0 - 1]))
 
-    s1 = gf2_mul(Llast, c)
+    s1 = circmatprod_GF2x(Llast, c)
 
     s2 = circtranspose(s1)  #TODO transpose Q e H instead in Qdecoder
 

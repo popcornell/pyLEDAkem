@@ -1,5 +1,5 @@
-from gf_math_ops import gf2_add, gf2_mul
-from gf_math_ops import circtranspose, z_mul
+from math_ops import gf2_add
+from math_ops import circtranspose, circmatprod_Z, circmatprod_GF2x
 import numpy as np
 
 
@@ -20,14 +20,14 @@ def Qdecoder(H, Q, n0, p, s, look_up, i_max):
 
         counter = []
         for i in range(n0):
-            counter.append(z_mul(s_i, (H[i])))
+            counter.append(circmatprod_Z(s_i, (H[i])))
 
 
         corr = []
         for i in range(n0):
-            corr.append(z_mul(counter[0], Q[0, i]))
+            corr.append(circmatprod_Z(counter[0], Q[0, i]))
             for j in range(1, n0):
-                 corr[i] = np.add(corr[i], z_mul(counter[j], (Q[j, i])))
+                 corr[i] = np.add(corr[i], circmatprod_Z(counter[j], (Q[j, i])))
 
         ws = np.count_nonzero(s_i)
 
@@ -46,13 +46,13 @@ def Qdecoder(H, Q, n0, p, s, look_up, i_max):
             temp = np.zeros(p, dtype='uint8')
 
             for j in range(n0):
-                temp = gf2_add(temp, gf2_mul(e[j, :], circtranspose(Q[i, j])))
+                temp = gf2_add(temp, circmatprod_GF2x(e[j, :], circtranspose(Q[i, j])))
 
             ep.append(temp)
 
         delta_s = np.zeros(p, dtype='uint8')
         for i in range(n0):
-            delta_s = gf2_add(delta_s, gf2_mul(ep[i], circtranspose(H[i])))
+            delta_s = gf2_add(delta_s, circmatprod_GF2x(ep[i], circtranspose(H[i])))
 
         s_i = gf2_add(s, delta_s)
         i_iter += 1

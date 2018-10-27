@@ -1,7 +1,7 @@
 import numpy as np
-from pyGF2.generic_functions import strip_zeros
-from pyGF2.gf2_div import gf2_div
-from pyGF2.gf2_add import gf2_add
+from math_ops.pyGF2.generic_functions import strip_zeros
+from math_ops.pyGF2.gf2_div import gf2_div
+from math_ops.pyGF2.gf2_add import gf2_add
 
 
 def gf2_inv(f, g):
