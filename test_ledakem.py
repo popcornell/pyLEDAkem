@@ -8,7 +8,7 @@ from rng import quasi_trng
 from threshold_lut import choose_threshold_lut
 
 from M_generation import keygen
-from gf_math_ops import gf2_add, gf2_mul, circtranspose
+
 
 
 class ledakem_session(object):
@@ -21,62 +21,62 @@ class ledakem_session(object):
         if category == 1:
 
             if self.n0 == 2:
-                self.p = 27779
-                self.dv = 17
-                self.m = [4, 3]
-                self.t = 224
+                self.p = 15013
+                self.dv = 9
+                self.m = np.array([5, 4], dtype="uint8")
+                self.t = 143
 
             if self.n0 == 3:
-                self.p = 18701
-                self.dv = 19
+                self.p = 9643
+                self.dv = 13
                 self.m = np.array([3, 2, 2], dtype='uint8')
-                self.t = 141
+                self.t = 90
 
             if self.n0 == 4:
-                self.p = 17027
-                self.dv = 21
-                self.m = np.array([4, 1, 1, 1], dtype='uint8')
-                self.t = 112
+                self.p = 8467
+                self.dv = 11
+                self.m = np.array([3, 2, 2, 2], dtype='uint8')
+                self.t = 72
 
         elif category == 2 or category == 3:
 
             if self.n0 == 2:
-                self.p = 27779
-                self.dv = 17
-                self.m = [4, 3]
-                self.t = 224
+                self.p = 24533
+                self.dv = 13
+                self.m = [5, 4]
+                self.t = 208
 
             if self.n0 == 3:
-                self.p = 18701
-                self.dv = 19
-                self.m = np.array([3, 2, 2], dtype='uint8')
-                self.t = 141
+                self.p = 17827
+                self.dv = 15
+                self.m = np.array([4, 3, 2], dtype='uint8')
+                self.t = 129
 
             if self.n0 == 4:
-                self.p = 17027
-                self.dv = 21
-                self.m = np.array([4, 1, 1, 1], dtype='uint8')
-                self.t = 112
+                self.p = 14717
+                self.dv = 15
+                self.m = np.array([3, 2, 2, 2], dtype='uint8')
+                self.t = 104
 
         elif category == 4 or category == 5:
 
             if self.n0 == 2:
-                self.p = 27779
-                self.dv = 17
-                self.m = [4, 3]
-                self.t = 224
+                self.p = 37619
+                self.dv = 11
+                self.m = [7, 6]
+                self.t = 272
 
             if self.n0 == 3:
-                self.p = 18701
-                self.dv = 19
-                self.m = np.array([3, 2, 2], dtype='uint8')
-                self.t = 141
+                self.p = 28477
+                self.dv = 13
+                self.m = np.array([5, 4, 4], dtype='uint8')
+                self.t = 172
 
             if self.n0 == 4:
-                self.p = 17027
-                self.dv = 21
-                self.m = np.array([4, 1, 1, 1], dtype='uint8')
-                self.t = 112
+                self.p = 22853
+                self.dv = 13
+                self.m = np.array([4, 3, 3, 3], dtype='uint8')
+                self.t = 135
 
 
 class test_ledakem(unittest.TestCase):
@@ -91,7 +91,7 @@ class test_ledakem(unittest.TestCase):
         for i in self.category:
 
             for j in self.n0:
-                self.test_parameters.append(ledakem_session(1, 4))
+                self.test_parameters.append(ledakem_session(i+1, j))
 
         n_test = 0
 

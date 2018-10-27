@@ -1,5 +1,6 @@
 import numpy as np
-from gf_math_ops import gf2_add, gf2_mul, circtranspose
+from gf_math_ops import gf2_add, gf2_mul
+from gf_math_ops import circtranspose
 from Qdecoder import Qdecoder
 from HQ_generation import HQgen
 from hashlib import sha3_256

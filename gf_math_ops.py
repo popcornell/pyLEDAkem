@@ -31,7 +31,7 @@ def gf2_add(a, b):
 '''MULTIPLICATION IN Z mod x^p+1'''
 
 
-@numba.jit(forceobj=True)
+
 def z_mul(a, b):
 
     return np.rint(np.real(np.fft.ifft(np.fft.fft(a) * np.fft.fft(b)))).astype('uint16')  # TODO ? type ?

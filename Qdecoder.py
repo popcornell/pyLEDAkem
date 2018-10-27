@@ -1,4 +1,5 @@
-from gf_math_ops import gf2_add, gf2_mul, z_mul, circtranspose
+from gf_math_ops import gf2_add, gf2_mul
+from gf_math_ops import circtranspose, z_mul
 import numpy as np
 
 
@@ -9,8 +10,6 @@ def Qdecoder(H, Q, n0, p, s, look_up, i_max):
     e = np.reshape(e, (n0, p))
 
     s_i = s
-
-
 
     while (i_iter < i_max) and (s_i.any()):  # syndrome not zeros
 
@@ -28,11 +27,11 @@ def Qdecoder(H, Q, n0, p, s, look_up, i_max):
         for i in range(n0):
             corr.append(z_mul(counter[0], Q[0, i]))
             for j in range(1, n0):
-                corr[i] = np.add(corr[i], z_mul(counter[j], (Q[j, i])))
+                 corr[i] = np.add(corr[i], z_mul(counter[j], (Q[j, i])))
 
         ws = np.count_nonzero(s_i)
 
-        pos = np.where(look_up[:, 0] < ws)[0]
+        pos =  np.where(look_up[:, 0] < ws)[0]
 
         b = look_up[pos[-1], 1]
 

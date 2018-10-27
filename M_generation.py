@@ -31,7 +31,10 @@ def keygen(n0, p, dv, m, pseed):
         M.append(gf2_mul(Linv, L[i]))
 
     if __debug__:
-        check_inverse = gf2_mul(Linv, L[-1])
+
+        from pyGF2 import gf2_div
+
+        check_inverse = gf2_div(gf2_mul(Linv, L[-1]), irr_poly)[1]
 
         assert (np.sum(check_inverse) == 1)
         assert check_inverse[0] == 1
