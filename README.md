@@ -41,6 +41,6 @@ by me in my free time.
 
 ---
 
-###### Special thanks to:
+##### Special thanks to:
 - Dr. Paolo Santini
 - Prof. Marco Baldi
