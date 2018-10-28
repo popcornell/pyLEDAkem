@@ -1,7 +1,7 @@
 from math_ops import gf2_add
 from math_ops import circtranspose, circmatprod_Z, circmatprod_GF2x, z_add
 import numpy as np
-from math_ops.pyGF2.generic_functions import to_same_dim, padding
+from math_ops.pyGF2.generic_functions import padding
 
 
 def Qdecoder(H, Q, n0, p, s, look_up, i_max):
@@ -65,6 +65,6 @@ def Qdecoder(H, Q, n0, p, s, look_up, i_max):
         flag = True
 
         for i in range(n0):
-            e[i] = padding(e[i], p) #TODO pad 
+            e[i] = padding(e[i], p) #pad each block of e to have p length
 
     return flag, e

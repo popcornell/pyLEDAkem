@@ -1,7 +1,16 @@
 import numpy as np
 
 
+class LEDAkem_GLOBAL_PARAMS():  # GLOBAL VARIABLE TO STORE IRRIDUCIBLE POLYNOMIAL X^p+1
 
+    irr_poly = 0  # x^p + 1 irr polynomial
+    n0 = 0
+    p = 0
+    t = 0
+    m = 0
+    dv = 0
+    TRNG_byte_len = 0
+    sha3_version = 0
 
 
 class ledakem_session(object):
@@ -14,7 +23,10 @@ class ledakem_session(object):
         if category == 1:
 
             self.TRNG_byte_len = 24
-            self.hash__byte_len = 32  # SHA3_256
+
+            from hashlib import sha3_256
+
+            self.sha3_version = sha3_256
 
             if self.n0 == 2:
                 self.p = 15013
@@ -43,7 +55,10 @@ class ledakem_session(object):
         elif category == 2 or category == 3:
 
             self.TRNG_byte_len = 32
-            self.hash__byte_len = 48  # SHA3_384
+
+            from hashlib import sha3_384
+
+            self.sha3_version = sha3_384
 
             if self.n0 == 2:
                 self.p = 24533
@@ -71,7 +86,10 @@ class ledakem_session(object):
         elif category == 4 or category == 5:
 
             self.TRNG_byte_len = 40
-            self.hash__byte_len = 64  # SHA3_384
+
+            from hashlib import sha3_512
+
+            self.sha3_version = sha3_512
 
             if self.n0 == 2:
                 self.p = 37619
@@ -101,11 +119,7 @@ class ledakem_session(object):
 
 
 
-class LEDAkem_GLOBAL_PARAMS(): # GLOBAL VARIABLE TO STORE IRRIDUCIBLE POLYNOMIAL X^p+1
 
-      irr_poly = 0 # x^p + 1 irr polynomial
-      n0 = 0
-      p = 0
 
 
 

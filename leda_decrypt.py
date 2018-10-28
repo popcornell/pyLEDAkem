@@ -1,12 +1,20 @@
 import numpy as np
 from math_ops import gf2_add
+from parameters import LEDAkem_GLOBAL_PARAMS
 from math_ops import circmatprod_GF2x, circtranspose
 from Qdecoder import Qdecoder
 from HQ_generation import HQgen
 from hashlib import sha3_256
 
 
-def leda_dec(n0, p, m, dv, c, thresh_lut, i_max, pseed):
+def leda_dec(c, thresh_lut, i_max, pseed):
+
+    n0 = LEDAkem_GLOBAL_PARAMS.n0
+    p = LEDAkem_GLOBAL_PARAMS.p
+    dv = LEDAkem_GLOBAL_PARAMS.dv
+    m = LEDAkem_GLOBAL_PARAMS.m
+
+    sha3 = LEDAkem_GLOBAL_PARAMS.sha3_version
 
     H, Q = HQgen(n0, p, dv, m, pseed)
 
@@ -21,6 +29,6 @@ def leda_dec(n0, p, m, dv, c, thresh_lut, i_max, pseed):
 
     ok, e = Qdecoder(H, Q, n0, p, s2, thresh_lut, i_max)
 
-    Ks = sha3_256(e).digest()
+    Ks = sha3(e).digest()
 
     return ok, Ks
