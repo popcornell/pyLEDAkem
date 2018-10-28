@@ -1,6 +1,7 @@
 from math_ops import gf2_add
-from math_ops import circtranspose, circmatprod_Z, circmatprod_GF2x
+from math_ops import circtranspose, circmatprod_Z, circmatprod_GF2x, z_add
 import numpy as np
+from math_ops.pyGF2.generic_functions import to_same_dim, padding
 
 
 def Qdecoder(H, Q, n0, p, s, look_up, i_max):
@@ -27,7 +28,8 @@ def Qdecoder(H, Q, n0, p, s, look_up, i_max):
         for i in range(n0):
             corr.append(circmatprod_Z(counter[0], Q[0, i]))
             for j in range(1, n0):
-                 corr[i] = np.add(corr[i], circmatprod_Z(counter[j], (Q[j, i])))
+
+                 corr[i] = z_add(corr[i], circmatprod_Z(counter[j], (Q[j, i])))
 
         ws = np.count_nonzero(s_i)
 
@@ -61,5 +63,8 @@ def Qdecoder(H, Q, n0, p, s, look_up, i_max):
         flag = False
     else:
         flag = True
+
+        for i in range(n0):
+            e[i] = padding(e[i], p) #TODO pad 
 
     return flag, e

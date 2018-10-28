@@ -1,9 +1,12 @@
 import numpy as np
 
 
-# /******************** START of definitions for N0 = 2 *************************/
+# /***************THRESHOLD_LUT_ **************************************/
 
 def choose_threshold_lut(CATEGORY, N0):
+
+    # /******************** START of definitions for N0 = 2 *************************/
+
     if CATEGORY == 1 and N0 == 2:
         thresh_lut = np.array(((0, 43),
                                (2843, 44),
